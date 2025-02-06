@@ -5,8 +5,11 @@
 using namespace std;
 
 int P;
-int T; // game time in minutes?
+int T; // game time in minutes, max 100 (see line 480)
 int D;
+int S0; // opponent score
+int S1; // Dartmouth score
+int Z;  // type of shot (entered by user)
 string opponent; //  opponents name
 
 double RND()
@@ -14,15 +17,42 @@ double RND()
      return 1.0*rand()/RAND_MAX;
 }
 
+void printscore() // 6010
+{
+     cout << "Score: " <<  S1 << " to " << S0;
+}
 
+// line 3000
 void goOpponent()
 {
+ int z1;
  P = 1;
  T = T + 1;
- if (T == 50)
+ if (T == 50) // 8000
  {
      cout << "  **** End of First Half ****";
-     cout << "Score: Dartmout" << "  " << opponent;
+     cout << "Score: Dartmout" << "  " << opponent << "\n";
+ }
+ z1 = 2.5*RND()+1;
+ if (z1 > 2) // 3500
+ {
+     if (z1 > 3) // 3800
+     {
+          cout << "\n Set Shot";
+          if (7.0/D*RND() > 0.413) // 3520
+          {
+               cout << "\n Shot Missed"; // 3600
+          }
+          else
+          {
+             cout << "Shot is Good";
+             // two points to opponent
+             S0 = S0 + 2;
+             // Dartmouth's Ball
+             // go back to top 425
+          }
+     }
+
  }
 }
 
@@ -63,15 +93,33 @@ int main()
    } 
   cout << "\n Choose your opponents name: ";
   cin  >> opponent;
-  cout << "\n Centre Jump";
- if (RND() > 0.6)
-  {   
-     cout << "\n Dartmouth controls the tap.";
-     goOpponent();
-  } 
- else
-  {
-    cout << opponent << "controls the tap.";
-  }
+ 
+  // line 425: start of main loop
+  // ask copilot about breaking back to start of loop
+ T = 0;
+ while ( (T < 100 ) or (RND() < 0.5) )
+ {
+   cout << "\n Centre Jump";
+   if (RND() > 0.6)
+   {   
+     cout << "\n Dartmouth controls the tap. \n";
+     Z = -1;
+     while ( (Z != int(Z)) or (Z < 0) or (Z > 4))
+     {
+      cout << "\n Your shot: ";
+      cin >> Z;
+      P=0;
+      if ( (Z != int(Z)) or (Z < 0) or (Z > 4))
+      {
+          cout << "Incorrect answer. Retype it.";
+      }
+     }
+   } 
+   else
+   {
+    cout << opponent << "controls the tap. \n";
+    goOpponent();
+   }
+ }
 
 }
