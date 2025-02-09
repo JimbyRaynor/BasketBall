@@ -6,9 +6,9 @@ using namespace std;
 
 int P;
 int T; // game time in minutes, max 100 (see line 480)
-int D;
-int S0; // opponent score
-int S1; // Dartmouth score
+double D;  // Defense type
+int S0=0; // opponent score
+int S1=0; // Dartmouth score
 int Z;  // type of shot (entered by user)
 string opponent; //  opponents name
 
@@ -19,42 +19,99 @@ double RND()
 
 void printscore() // 6010
 {
-     cout << "Score: " <<  S1 << " to " << S0;
+     cout << "Score: " <<  S1 << " to " << S0 << "\n";
+}
+
+
+void EndFirstHalf() // 8000
+{
+     cout << "\n  **** End of First Half ****\n";
+     cout << "Score: Dartmout" << "  " << opponent << "\n";
 }
 
 // line 3000
-void goOpponent()
+int goOpponent()
 {
  int z1;
  P = 1;
  T = T + 1;
  if (T == 50) // 8000
  {
-     cout << "  **** End of First Half ****";
-     cout << "Score: Dartmout" << "  " << opponent << "\n";
+  EndFirstHalf();
+  return 0;   
  }
  z1 = 2.5*RND()+1;
  if (z1 > 2) // 3500
  {
      if (z1 > 3) // 3800
      {
-          cout << "\n Set Shot";
+          cout << "\n Set Shot" << "\n";
           if (7.0/D*RND() > 0.413) // 3520
           {
-               cout << "\n Shot Missed"; // 3600
+               cout << "\n Shot Missed" << "\n"; // 3600
           }
           else
           {
-             cout << "Shot is Good";
-             // two points to opponent
-             S0 = S0 + 2;
-             // Dartmouth's Ball
-             // go back to top 425
+             cout << "Shot is Good" << "\n";
+             ScoreOpponent();
+             return 0;
           }
      }
-
+     else
+     {     // 3510
+          cout << "\n Lay up. \n";
+          if (7.0/D*RND() > 0.413)
+          {
+               cout << "\n Shot is missed. \n";
+          }
+     }
  }
+ return 0;
 }
+
+void ScoreOpponent()
+{
+  // 6000
+  S0 = S0 + 2;
+  cout << "Score: " << S1 << " to " << S0 << "\n";
+}
+
+int PerformShot()
+{
+  if ((Z == 1) or (Z == 2))
+     {
+      cout << "\n Jump shot\n";
+      if (RND() <= 0.682*D/8)
+      {
+          cout << "Airball" << "\n";
+          if (1.0*D/6*RND() > 0.45)
+          {
+               cout << "Rebound to " << opponent << "\n";
+               return 0; // goto 3000 (opponents turn)
+          }
+          else // 1110
+          {
+            cout << "Dartmouth controls the rebound" << "\n";
+            if (RND() > 0.4)
+            { // 1158
+              if (D == 6)
+              { // 5100
+               if (RND() > 0.6)
+               {
+                  cout << "Pass stolen by " << opponent << ". Easy layup." << "\n";
+                  ScoreOpponent();
+                  return 1;  // goto start L425
+               }            
+              }
+              cout << "Ball passed back to you" << "\n";
+              return 1; // goto 430, same as 425
+            }
+          }
+      }
+     }
+ return 0;
+}
+
 
 int main()
 {
@@ -94,6 +151,8 @@ int main()
   cout << "\n Choose your opponents name: ";
   cin  >> opponent;
  
+
+
   // line 425: start of main loop
   // ask copilot about breaking back to start of loop
  T = 0;
@@ -114,11 +173,17 @@ int main()
           cout << "Incorrect answer. Retype it.";
       }
      }
+     // 1000
+     T = T + 1;
+     if (PerformShot() == 0)
+     {
+       goOpponent(); //3000   
+     }
    } 
    else
    {
-    cout << opponent << "controls the tap. \n";
-    goOpponent();
+    cout  << "\n" << opponent << "controls the tap. \n";
+    goOpponent(); //3000
    }
  }
 
