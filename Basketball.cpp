@@ -22,6 +22,12 @@ void printscore() // 6010
      cout << "Score: " <<  S1 << " to " << S0 << "\n";
 }
 
+void ScoreOpponent()
+{
+  // 6000
+  S0 = S0 + 2;
+  printscore();
+}
 
 void EndFirstHalf() // 8000
 {
@@ -66,21 +72,60 @@ int goOpponent()
           }
      }
  }
+ else
+ {
+     cout << "\n Jump Shot\n"; // 3040
+     if (8.0/D*RND() > 0.35) // 3050
+     {    //3100
+          if (8.0/D*RND() > 0.75) // 3100
+          {
+               //3200
+              if (8.0/D*RND() > 0.9) // 3200
+              {
+               //3310
+               cout << "\n Offensive Foul. Dartmnouth's Ball. \n";
+               return 0; // 425 not quite right, need to fix
+              }          
+          }
+          else
+          {
+               // 3105
+               cout << "\n Shot is off rim. \n";
+               if (D/6.0*RND() > 0.5) // 3110
+               {
+                    //3150
+                    cout << opponent << "\n controls the rebound. \n";
+                    if (D == 6)
+                    {
+                         // 5000
+                    }
+                    return 0; // goto 425 (fix)
+               }
+               else
+               {
+                    //3120
+
+               }
+          }
+     }
+     else
+     {
+          //3060
+          cout << "\n Shot is good. \n";
+          ScoreOpponent();
+          return 0; // 425 not quite right, need to fix
+     }
+ }
  return 0;
 }
 
-void ScoreOpponent()
-{
-  // 6000
-  S0 = S0 + 2;
-  cout << "Score: " << S1 << " to " << S0 << "\n";
-}
+
 
 int PerformShot()
 {
-  if ((Z == 1) or (Z == 2))
+  if ((Z == 1) or (Z == 2)) // 1050
      {
-      cout << "\n Jump shot\n";
+      cout << "\n Jump shot\n"; // 1050
       if (RND() <= 0.682*D/8)
       {
           cout << "Airball" << "\n";
