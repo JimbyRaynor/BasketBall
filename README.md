@@ -16,4 +16,3 @@ style A fill:#ff0000;
 ```
 
 Hello
-style A fill:#ff0000,stroke#333,sroke-width:40px;
