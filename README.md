@@ -15,7 +15,7 @@ graph TD;
     C-->J[Lay up];
     C-->K[Set Shot];
 
-    D --> |0.55|L[Airball]
+    D --> |0.682|L[Airball]
 
 
 style A fill:#ff0000;
