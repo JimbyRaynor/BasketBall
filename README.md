@@ -11,7 +11,7 @@ graph TD;
     C-->F;
     C-->G;
 
-style A fill:#f9f,stroke#333,sroke-width:4px;
+style A fill:#ff0000,stroke#333,sroke-width:4px;
 
 ```
 
