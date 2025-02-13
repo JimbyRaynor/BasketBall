@@ -4,7 +4,7 @@ BasketBall game, originally written in BASIC shortly after 1963
 
 ```mermaid
 graph TD;
-    A-->|Label1|B;
+    A-->|0.1|B;
     A-->C;
     B-->D;
     B-->E;
