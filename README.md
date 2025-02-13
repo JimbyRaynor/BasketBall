@@ -10,6 +10,10 @@ graph TD;
     B-->E[Short Jump Shot];
     B-->F[Lay up];
     B-->G[Set Shot];
+    C-->H[Long Jump Shot];
+    C-->I[Short Jump Shot];
+    C-->J[Lay up];
+    C-->K[Set Shot];
 
 
 style A fill:#ff0000;
