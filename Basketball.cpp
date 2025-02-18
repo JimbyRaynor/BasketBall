@@ -29,6 +29,13 @@ void ScoreOpponent()
   printscore();
 }
 
+ void ScoreDartmouth()
+ {
+     // 7000
+     S1 = S1 + 2;
+     printscore();
+ }
+
 void EndFirstHalf() // 8000
 {
      cout << "\n  **** End of First Half ****\n";
@@ -126,18 +133,26 @@ int PerformShot()
   if ((Z == 1) or (Z == 2)) // 1050
      {
       cout << "\n Jump shot\n"; // 1050
-      if (RND() <= 0.682*D/8)
+      if (RND() <= 0.341*D/8)
       {
-          cout << "Airball" << "\n";
-          if (1.0*D/6*RND() > 0.45)
+          cout << "\n Shot is good. \n"; // 1070
+          ScoreDartmouth(); // 1075
+          goOpponent();
+          return 1; // 1 is when opponent has had a turn
+      }
+      if (RND() <= 0.682*D/8) // 1090
+      {
+          cout << "Airball" << "\n"; // 1100
+          if (1.0*D/6*RND() > 0.45) // 1105
           {
+               // 1130
                cout << "Rebound to " << opponent << "\n";
                return 0; // goto 3000 (opponents turn)
           }
           else // 1110
           {
             cout << "Dartmouth controls the rebound" << "\n";
-            if (RND() > 0.4)
+            if (RND() > 0.4) // 1145
             { // 1158
               if (D == 6)
               { // 5100
@@ -148,9 +163,37 @@ int PerformShot()
                   return 1;  // goto start L425
                }            
               }
-              cout << "Ball passed back to you" << "\n";
+              cout << "Ball passed back to you" << "\n"; //1160
               return 1; // goto 430, same as 425
             }
+           else 
+           {
+             //1300
+             T = T + 1;
+             if (Z==0) //1305
+             {
+                // 2010
+                D = 0;
+                while (D < 6)
+                {
+                cout << "Input your new defensive alignment: ";
+                cin >> D;
+                }
+               return 1; // goto 425
+             } 
+            if (Z > 3) // 1310
+            {
+              //1700
+              cout << "Set Shot.";
+              // 1330
+              if (7.0/D*RND() <= 0.4)
+              { 
+               cout << "Shot is off the rim.";
+              }
+
+            }
+           }
+
           }
       }
      }
